@@ -5,6 +5,15 @@ import Link from "next/link";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { VscEye } from "react-icons/vsc";
 import { VscEyeClosed } from "react-icons/vsc";
+// lib
+// signup form schema
+import { SignupFormSchema } from "@/app/lib/definitions";
+// interface
+// form field error interface
+interface FormFieldErrorInterface {
+  email?: string[];
+  password?: string[];
+}
 export default function SignupForm() {
   // states
   // is password hide
@@ -15,11 +24,21 @@ export default function SignupForm() {
   const [email, setEmail] = useState("");
   // password
   const [password, setPassword] = useState("");
+  //   errors
+  const [formFieldErrors, setFormFieldErrors] =
+    useState<FormFieldErrorInterface>({});
 
-//   form submit handler
-const formSubmitHandler = () => {
-    console.log({email,password})
-}
+  //   form submit handler
+  const formSubmitHandler = () => {
+    const validatedFields = SignupFormSchema.safeParse({ email, password });
+    if (!validatedFields?.success) {
+      setFormFieldErrors(validatedFields.error.flatten().fieldErrors);
+    } else {
+      setFormFieldErrors({});
+    }
+  };
+
+  console.log(formFieldErrors);
 
   return (
     <div className="min-w-96 p-5 bg-white shadow-xl">
@@ -39,7 +58,11 @@ const formSubmitHandler = () => {
         <div className="mb-5">
           <div
             className={`border px-1.5 py-1.5 rounded-md text-sm flex items-center ${
-              focus === "email" || email ? "border-green-500" : "border-neutral-300"
+              formFieldErrors?.email?.length
+                ? "border-red-500"
+                : focus === "email" || email
+                ? "border-green-500"
+                : "border-neutral-300"
             }`}
           >
             <input
@@ -59,9 +82,11 @@ const formSubmitHandler = () => {
             />
           </div>
           {/* email error */}
-          {!true && (
+          {formFieldErrors?.email?.length && (
             <div className="ml-1.5 text-sm text-red-600">
-              <p>Email address required</p>
+              {formFieldErrors?.email?.map((item) => {
+                return <p key={item}>{item}</p>;
+              })}
             </div>
           )}
         </div>
@@ -69,7 +94,11 @@ const formSubmitHandler = () => {
         <div className="mb-5">
           <div
             className={`border px-1.5 py-1.5 rounded-md text-sm flex items-center ${
-              focus === "password"  || password ? "border-green-500" : "border-neutral-300"
+              formFieldErrors?.password?.length
+                ? "border-red-500"
+                : focus === "password" || password
+                ? "border-green-500"
+                : "border-neutral-300"
             }`}
           >
             <input
@@ -97,9 +126,11 @@ const formSubmitHandler = () => {
             </button>
           </div>
           {/* password error */}
-          {!true && (
+          {formFieldErrors?.password?.length && (
             <div className="ml-1.5 text-sm text-red-600">
-              <p>password required</p>
+              {formFieldErrors?.password?.map((item) => {
+                return <p key={item}>{item}</p>;
+              })}
             </div>
           )}
         </div>
