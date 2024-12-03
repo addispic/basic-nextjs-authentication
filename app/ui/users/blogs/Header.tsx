@@ -1,11 +1,20 @@
+import Link from "next/link";
+// icons
+import { FaBlog } from "react-icons/fa";
 // sub components
 import LogoutButton from "./LogoutButton"
 import GetUsername from "./GetUsername"
+
 export default function BlogsHeader(){
     return (
         <header className="flex items-center justify-between px-[.5rem] bg-white border-b border-neutral-200">
             {/* left */}
-            <div>left</div>
+            <div>
+                <Link href={"/"} className="flex items-center justify-start gap-x-1.5 text-green-500 transition-colors ease-in-out duration-150 hover:text-green-600">
+                <FaBlog className="text-xl"/>
+                <span className="font-black">blogs</span>
+                </Link>
+            </div>
             {/* right */}
             <div className="flex items-center justify-end gap-x-3">
                 {/* profile */}
