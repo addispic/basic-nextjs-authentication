@@ -10,7 +10,7 @@ export default async function Home() {
   if(!response?._id) redirect("/login")
   return <div className="flex-1 flex flex-col">
     {/* blogs list */}
-    <div className="flex-1">
+    <div className="flex-1 py-1.5">
       <SingleBlog />
     </div>
     {/* add new blog form */}
