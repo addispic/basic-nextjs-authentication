@@ -8,6 +8,9 @@ import { VscEyeClosed } from "react-icons/vsc";
 // lib
 // signup form schema
 import { SignupFormSchema } from "@/app/lib/definitions";
+// actions
+// signup
+import { signup } from "@/app/actions/authentications/auth";
 // interface
 // form field error interface
 interface FormFieldErrorInterface {
@@ -29,16 +32,15 @@ export default function SignupForm() {
     useState<FormFieldErrorInterface>({});
 
   //   form submit handler
-  const formSubmitHandler = () => {
+  const formSubmitHandler = async () => {
     const validatedFields = SignupFormSchema.safeParse({ email, password });
     if (!validatedFields?.success) {
       setFormFieldErrors(validatedFields.error.flatten().fieldErrors);
     } else {
       setFormFieldErrors({});
+      await signup();
     }
   };
-
-  console.log(formFieldErrors);
 
   return (
     <div className="min-w-96 p-5 bg-white shadow-xl">
