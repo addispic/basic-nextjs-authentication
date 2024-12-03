@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import {redirect} from "next/navigation"
+import {redirect} from 'next/navigation'
 // icons
 import { IoMdArrowDropdown } from "react-icons/io";
 import { VscEye } from "react-icons/vsc";
@@ -11,14 +11,14 @@ import { VscEyeClosed } from "react-icons/vsc";
 import { SignupFormSchema } from "@/app/lib/definitions";
 // actions
 // signup
-import { signup } from "@/app/actions/authentications/auth";
+import { login } from "@/app/actions/authentications/auth";
 // interface
 // form field error interface
 interface FormFieldErrorInterface {
   email?: string[];
   password?: string[];
 }
-export default function SignupForm() {
+export default function LoginForm() {
   // states
   // is password hide
   const [isPasswordHide, setIsPasswordHide] = useState(true);
@@ -42,22 +42,30 @@ export default function SignupForm() {
     } else {
       setFormFieldErrors({});
       setIsSubmitting(true);
-      const response = await signup({ email, password });
+      const response = await login({ email, password });
       if (response?.message) {
         setIsSubmitting(false);
         setFormFieldErrors({});
-        redirect("/profile")
+        redirect("/")
       }
       if (response?.emailError) {
         setFormFieldErrors((prev) => {
           return {
             ...prev,
-            email: ["Email address already exist."],
+            email: ["Email not exist."],
           };
         });
         setIsSubmitting(false);
       }
-      console.log(response, "+++");
+      if (response?.passwordError) {
+        setFormFieldErrors((prev) => {
+          return {
+            ...prev,
+            password: ["Incorrect password."],
+          };
+        });
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -72,7 +80,7 @@ export default function SignupForm() {
         </div>
       </header>
       {/* header */}
-      <h3 className="text-xl text-green-500 my-1.5">Create account</h3>
+      <h3 className="text-xl text-green-500 my-1.5">Login</h3>
       {/* inputs */}
       <div className="mt-5">
         {/* email */}
@@ -167,16 +175,16 @@ export default function SignupForm() {
           {isSubmitting ? (
             <div className="w-[20px] relative z-10 aspect-square border-2 border-white rounded-full border-r-transparent animate-spin" />
           ) : (
-            <span className="relative z-10">Signup</span>
+            <span className="relative z-10">Login</span>
           )}
         </button>
         <p className="text-sm text-neutral-500 mb-5">
-          Already have an account ?{" "}
+          Don't have an account ?{" "}
           <Link
-            href={"/login"}
+            href={"/signup"}
             className="font-medium transition-colors ease-in-out duration-150 hover:underline hover:text-green-500"
           >
-            Login
+            Signup
           </Link>
         </p>
       </div>
