@@ -30,6 +30,8 @@ export default function SignupForm() {
   //   errors
   const [formFieldErrors, setFormFieldErrors] =
     useState<FormFieldErrorInterface>({});
+  // is submitting
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   //   form submit handler
   const formSubmitHandler = async () => {
@@ -38,7 +40,22 @@ export default function SignupForm() {
       setFormFieldErrors(validatedFields.error.flatten().fieldErrors);
     } else {
       setFormFieldErrors({});
-      await signup();
+      setIsSubmitting(true);
+      const response = await signup({ email, password });
+      if (response?.message) {
+        setIsSubmitting(false);
+        setFormFieldErrors({});
+      }
+      if (response?.emailError) {
+        setFormFieldErrors((prev) => {
+          return {
+            ...prev,
+            email: ["Email address already exist."],
+          };
+        });
+        setIsSubmitting(false);
+      }
+      console.log(response, "+++");
     }
   };
 
@@ -139,10 +156,17 @@ export default function SignupForm() {
 
         {/* button */}
         <button
-          onClick={formSubmitHandler}
+          disabled={isSubmitting}
+          onClick={() => {
+            formSubmitHandler();
+          }}
           className="w-full my-7 flex items-center justify-center py-1.5 text-sm bg-green-500 rounded-md overflow-hidden text-white relative after:absolute after:left-0 after:top-0 after:w-0 after:h-full after:bg-green-600 after:transition-all after:ease-in-out after:duration-150 hover:after:w-full"
         >
-          <span className="relative z-10">Signup</span>
+          {isSubmitting ? (
+            <div className="w-[20px] relative z-10 aspect-square border-2 border-white rounded-full border-r-transparent animate-spin" />
+          ) : (
+            <span className="relative z-10">Signup</span>
+          )}
         </button>
         <p className="text-sm text-neutral-500 mb-5">
           Already have an account ?{" "}
