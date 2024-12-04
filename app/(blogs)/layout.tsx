@@ -18,7 +18,7 @@ export default function BlogsLayout({
         {/* left side */}
         <div className="w-72 shrink-0 bg-red-200">Left Side</div>
         {/* children */}
-        <div className="flex-1 flex flex-col h-[96.5vh] overflow-hidden">{children}</div>
+        <div className="flex-1 flex flex-col h-[95vh] overflow-hidden">{children}</div>
         {/* right */}
         <div className="w-64 lg:w-96 shrink-0 bg-green-100">Right Side</div>
       </div>

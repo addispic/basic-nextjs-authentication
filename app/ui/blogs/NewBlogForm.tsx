@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 // icons
 import { MdAttachFile } from "react-icons/md";
 import { GrSend } from "react-icons/gr";
@@ -7,19 +8,34 @@ export default function NewBlogForm() {
   // states
   // text
   const [text, setText] = useState("");
-//   focus
-const [focus,setFocus] = useState("")
+  //   focus
+  const [focus, setFocus] = useState("");
 
-// reference
-const textareaReference = useRef<HTMLTextAreaElement>(null)
+  // reference
+  const textareaReference = useRef<HTMLTextAreaElement>(null);
 
-// textarea height handler
-useEffect(()=>{
-    if(textareaReference.current){
-        textareaReference.current.style.height = "20px"
-        textareaReference.current.style.height = `${textareaReference.current.scrollHeight}px`
+  // textarea height handler
+  useEffect(() => {
+    if (textareaReference.current) {
+      textareaReference.current.style.height = "20px";
+      textareaReference.current.style.height = `${textareaReference.current.scrollHeight}px`;
     }
-},[text])
+  }, [text]);
+
+  // add form submit handler
+  const submitFormHandler = async () => {
+    if (text.trim()) {
+      try {
+        const response = await axios.post("http://localhost:3000/api/blogs", {
+          text,
+        });
+        console.log(response.data)
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+    }
+  };
 
   return (
     <div className="py-1.5 flex items-end gap-x-1.5 bg-white">
@@ -58,6 +74,9 @@ useEffect(()=>{
             ? "text-green-500 hover:text-green-600"
             : "text-neutral-500 hover:text-neutral-600 "
         }`}
+        onClick={() => {
+          submitFormHandler();
+        }}
       >
         <GrSend />
       </button>

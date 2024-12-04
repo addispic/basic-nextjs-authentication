@@ -7,7 +7,7 @@ import GetUsername from "../users/GetUsername";
 
 export default function BlogsHeader() {
   return (
-    <header className="flex items-center justify-between px-[.5rem] bg-white border-b border-neutral-200">
+    <header className="flex items-center justify-between px-[.5rem] bg-white border-b border-neutral-200 py-[.35rem]">
       {/* left */}
       <div>
         <Link
