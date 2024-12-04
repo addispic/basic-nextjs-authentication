@@ -12,7 +12,7 @@ import { GoComment } from "react-icons/go";
 import { PiTrashLight } from "react-icons/pi";
 export default function SingleBlog(){
     return (
-      <div>
+      <div className="mb-7">
         {/* blog content */}
         <div>
           {/* image */}

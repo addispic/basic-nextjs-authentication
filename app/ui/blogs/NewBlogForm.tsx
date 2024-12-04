@@ -28,27 +28,37 @@ useEffect(()=>{
         <MdAttachFile className="text-2xl cursor-pointer text-green-500 transition-colors ease-in-out duration-150 hover:text-green-600" />
       </div>
       {/* text area */}
-      <div className={`flex-1 border rounded-md px-1.5 py-1 text-sm flex items-center ${focus === "text" ? "border-green-500" : "border-neutral-400"}`}>
+      <div
+        className={`flex-1 border rounded-md px-1.5 py-1 text-sm flex items-center ${
+          focus === "text" ? "border-green-500" : "border-neutral-400"
+        }`}
+      >
         <textarea
-          className="w-full focus:outline-none focus:ring-0 border-none bg-transparent resize-none p-0 h-[20px] max-h-[65vh]"
+          className="w-full focus:outline-none focus:ring-0 border-none bg-transparent resize-none p-0 h-[20px] max-h-[65vh] no-scroll-bar"
           placeholder="text..."
           name=""
           id=""
           ref={textareaReference}
           value={text}
-          onChange={(e)=>{
-            setText(e.target.value)
+          onChange={(e) => {
+            setText(e.target.value);
           }}
-          onFocus={()=>{
-            setFocus("text")
+          onFocus={() => {
+            setFocus("text");
           }}
-          onBlur={()=>{
-            setFocus("")
+          onBlur={() => {
+            setFocus("");
           }}
         ></textarea>
       </div>
       {/* send button */}
-      <button className={`text-xl transition-colors ease-in-out duration-150 md:text-2xl ${text.trim() ? "text-green-500 hover:text-green-600" : "text-neutral-500 hover:text-neutral-600 "}`}>
+      <button
+        className={`text-xl transition-colors ease-in-out duration-150 md:text-2xl ${
+          text.trim()
+            ? "text-green-500 hover:text-green-600"
+            : "text-neutral-500 hover:text-neutral-600 "
+        }`}
+      >
         <GrSend />
       </button>
     </div>
