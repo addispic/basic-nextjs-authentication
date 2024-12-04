@@ -10,20 +10,26 @@ export default async function Home() {
   const payload = await getPayload() 
   if (!payload?._id) redirect("/login");
   const response = await axios.get("http://localhost:3000/api/blogs")
-  console.log(response.data)
   return <div className="flex-1 flex flex-col overflow-hidden">
     {/* blogs list */}
     <div className="flex-1 py-1.5 px-1.5  overflow-y-auto custom-scroll-bar" >
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
-      <SingleBlog />
+      {
+        response?.data?.blogs?.length > 0 
+        ?
+        <>
+
+        {
+          response?.data?.blogs?.map((blogItem: {_id: string;author: string; text: string, createdAt: string})=>{
+            return (
+              <SingleBlog key={blogItem?._id} blogItem={blogItem}/> 
+            )
+          })
+        }
+        
+        </>
+        :
+        <div>No Blogs Yet</div>
+      }
     </div>
     {/* add new blog form */}
     <NewBlogForm />

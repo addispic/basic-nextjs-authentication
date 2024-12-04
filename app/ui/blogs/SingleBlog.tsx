@@ -1,3 +1,4 @@
+import {formatDistanceToNow} from 'date-fns'
 // icons
 import { PiUserLight } from "react-icons/pi";
 import { PiClockAfternoonThin } from "react-icons/pi";
@@ -10,7 +11,11 @@ import { AiOutlineDislike } from "react-icons/ai";
 import { AiFillDislike } from "react-icons/ai";
 import { GoComment } from "react-icons/go";
 import { PiTrashLight } from "react-icons/pi";
-export default function SingleBlog(){
+// ui
+// user
+import GetUsernameWithID from '../users/GetUsernameWithID';
+
+export default function SingleBlog({blogItem}: {blogItem: {_id: string; author: string; text: string; createdAt: string}}){
     return (
       <div className="mb-7">
         {/* blog content */}
@@ -19,11 +24,7 @@ export default function SingleBlog(){
           {/* text */}
           <div className="bg-neutral-50 text-sm text-neutral-800 p-3 rounded-b-md overflow-hidden">
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores,
-              consequuntur architecto aut quaerat saepe id ipsa quam maxime.
-              Consequatur, temporibus ducimus corporis rem ea blanditiis nam
-              ratione consequuntur molestiae sed vero dicta quidem placeat nisi
-              totam non voluptates sit commodi ut quos?
+              {blogItem.text}
             </p>
           </div>
         </div>
@@ -38,13 +39,13 @@ export default function SingleBlog(){
                 <PiUserLight />
               </div>
               <div className="text-sm">
-                <span>Username</span>
+                <GetUsernameWithID _id={blogItem.author}/>
               </div>
             </div>
             {/* date */}
             <div className="flex items-center gap-0.5">
               <CiCalendarDate className="text-neutral-500" />
-              <span className="text-sm text-green-500">1 minutes ago</span>
+              <span className="text-xs text-green-500">{formatDistanceToNow(new Date(blogItem.createdAt),{addSuffix: true})}</span>
             </div>
           </div>
           {/* actions */}

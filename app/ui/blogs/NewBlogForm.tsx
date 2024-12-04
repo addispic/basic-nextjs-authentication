@@ -10,6 +10,8 @@ export default function NewBlogForm() {
   const [text, setText] = useState("");
   //   focus
   const [focus, setFocus] = useState("");
+  // is form submitting
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
   // reference
   const textareaReference = useRef<HTMLTextAreaElement>(null);
@@ -24,16 +26,36 @@ export default function NewBlogForm() {
 
   // add form submit handler
   const submitFormHandler = async () => {
+    setIsFormSubmitting(true);
     if (text.trim()) {
       try {
         const response = await axios.post("http://localhost:3000/api/blogs", {
           text,
         });
-        console.log(response.data)
+        console.log(response.status);
+        if (response.status === 200) {
+          setText("");
+          setIsFormSubmitting(false);
+          if (textareaReference?.current) {
+            textareaReference.current.style.height = "20px";
+            setText("");
+          }
+        }
+        setIsFormSubmitting(false);
       } catch (err) {
         console.log(err);
+        setIsFormSubmitting(false);
+        if (textareaReference?.current) {
+          textareaReference.current.style.height = "20px";
+          setText("");
+        }
       }
     } else {
+      setIsFormSubmitting(false);
+      if (textareaReference?.current) {
+        textareaReference.current.style.height = "20px";
+        setText("");
+      }
     }
   };
 
@@ -69,6 +91,7 @@ export default function NewBlogForm() {
       </div>
       {/* send button */}
       <button
+      disabled={isFormSubmitting}
         className={`text-xl transition-colors ease-in-out duration-150 md:text-2xl ${
           text.trim()
             ? "text-green-500 hover:text-green-600"
@@ -78,7 +101,13 @@ export default function NewBlogForm() {
           submitFormHandler();
         }}
       >
+        {
+          isFormSubmitting 
+          ?
+          <div className="w-[26px] aspect-square border-2 border-white rounded-full border-r-transparent animate-spin" />
+          :
         <GrSend />
+        }
       </button>
     </div>
   );

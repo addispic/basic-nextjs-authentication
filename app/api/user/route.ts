@@ -1,8 +1,7 @@
 import {NextRequest,NextResponse} from 'next/server'
+import mongoose from 'mongoose';
 
-// lib 
-// session
-import { getPayload } from '@/app/lib/session';
+
 // db
 import { dbConnectionHandler } from '@/app/db/dbConnection';
 // models
