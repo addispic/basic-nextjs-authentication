@@ -76,7 +76,7 @@ export default function SingleBlog({
           <div>
             <Link href={{
               pathname: "/comments",
-              query: {_id: "hahhdiiidndh98567"}
+              query: {_id: blogItem._id}
             }}>
             <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />
             </Link>

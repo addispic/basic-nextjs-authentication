@@ -12,5 +12,5 @@ export default async function middleware(request: NextRequest){
 
 // matcher
 export const config = {
-    matcher: ["/","/profile"]
+    matcher: ["/","/profile", "/comments"]
 }
