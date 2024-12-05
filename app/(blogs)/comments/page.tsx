@@ -51,10 +51,10 @@ const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
           </div>
         </div>
         {/* comment list */}
-        <CommentList />
+        <CommentList blogId={_id}/>
       </div>
       {/* add new comment */}
-      <NewCommentForm />
+      <NewCommentForm blog={_id}/>
     </div>
   );
 };

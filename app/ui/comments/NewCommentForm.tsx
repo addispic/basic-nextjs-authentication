@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 // icons
 import { GrSend } from "react-icons/gr";
-export default function NewCommentForm() {
+export default function NewCommentForm({blog}: {blog: string}) {
   // states
   // text
   const [text, setText] = useState("");
@@ -32,19 +32,20 @@ export default function NewCommentForm() {
     setIsFormSubmitting(true);
     if (text.trim()) {
       try {
-        // const response = await axios.post("http://localhost:3000/api/blogs", {
-        //   text,
-        // });
-        // console.log(response.status);
-        // if (response.status === 200) {
-        //   setText("");
-        //   setIsFormSubmitting(false);
-        //   if (textareaReference?.current) {
-        //     textareaReference.current.style.height = "20px";
-        //     setText("");
-        //   }
-        //   router.push("/");
-        // }
+        const response = await axios.post("http://localhost:3000/api/comments", {
+          blog,
+          text,
+        });
+        // console.log(response.data);
+        if (response.status === 200) {
+          setText("");
+          setIsFormSubmitting(false);
+          if (textareaReference?.current) {
+            textareaReference.current.style.height = "20px";
+            setText("");
+          }
+          router.push(`/comments?_id=${blog}`);
+        }
         setIsFormSubmitting(false);
       } catch (err) {
         console.log(err);
