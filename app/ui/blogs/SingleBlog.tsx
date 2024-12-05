@@ -18,6 +18,9 @@ import GetUsernameWithID from "../users/GetUsernameWithID";
 // ui
 // blog
 import DeleteBlogButton from "./DeleteBlogButton";
+// ui
+// comments
+import CommentsCounter from "../comments/CommentsCounter";
 
 export default function SingleBlog({
   blogItem,
@@ -74,15 +77,22 @@ export default function SingleBlog({
           </div>
           {/* comment */}
           <div>
-            <Link href={{
-              pathname: "/comments",
-              query: {_id: blogItem._id}
-            }}>
-            <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />
+            <Link
+              href={{
+                pathname: "/comments",
+                query: { _id: blogItem._id },
+              }}
+              className="flex items-center gap-x-0.5"
+            >
+              <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />{" "}
+              <span className="text-sm text-green-500">
+                <CommentsCounter blogId={blogItem._id}/>
+              </span>
+              <span className="text-sm text-green-500">comments</span>
             </Link>
           </div>
           {/* delete */}
-          <DeleteBlogButton author={blogItem.author} _id={blogItem._id}/>
+          <DeleteBlogButton author={blogItem.author} _id={blogItem._id} />
         </div>
       </footer>
     </div>
