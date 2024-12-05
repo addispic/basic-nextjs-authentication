@@ -1,6 +1,5 @@
 // icons
 import { PiUserLight } from "react-icons/pi";
-import { PiClockAfternoonThin } from "react-icons/pi";
 import { CiCalendarDate } from "react-icons/ci";
 export default function SingleComment() {
   return (

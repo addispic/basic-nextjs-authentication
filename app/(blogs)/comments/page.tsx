@@ -1,9 +1,13 @@
+import { redirect } from "next/navigation";
+import axios from "axios";
+import { formatDistanceToNow } from "date-fns";
 // icons
 import { PiUserLight } from "react-icons/pi";
 import { CiCalendarDate } from "react-icons/ci";
 // ui
 import NewCommentForm from "@/app/ui/comments/NewCommentForm";
 import CommentList from "@/app/ui/comments/CommentList";
+import GetUsernameWithID from "@/app/ui/users/GetUsernameWithID";
 
 interface CommentsPageProps {
   searchParams: { _id: string };
@@ -11,6 +15,9 @@ interface CommentsPageProps {
 
 const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
   const { _id } = await searchParams;
+
+  const response = await axios.get(`http://localhost:3000/api/blogs/${_id}`);
+  if(response.status !== 200) redirect("/")
 
   return (
     <div className="h-[94vh] overflow-hidden flex flex-col">
@@ -23,24 +30,24 @@ const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
             {/* author */}
             <div className="flex items-center gap-x-1.5 text-sm text-green-500 cursor-pointer transition-colors ease-in-out duration-150 hover:text-green-600">
               <PiUserLight className="text-lg" />
-              <span>by Haddis</span>
+              <span>by</span> <GetUsernameWithID _id={response.data?.isBlogExist?.author} /> 
             </div>
             {/* date */}
             <div className="flex items-center text-xs text-neutral-500 gap-x-1.5">
               <CiCalendarDate className="text-lg" />
-              <span className="text-green-500">3 minutes ago</span>
+              <span className="text-green-500">
+                {formatDistanceToNow(
+                  new Date(response.data?.isBlogExist?.createdAt),
+                  {
+                    addSuffix: true,
+                  }
+                )}
+              </span>
             </div>
           </header>
           {/* text */}
           <div className="text-sm bg-neutral-50 p-5 rounded-md">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-              impedit consequuntur cum! Dolorum quisquam, blanditiis odit
-              aperiam, cupiditate dolor dolore aut numquam ullam consequuntur
-              cum? Quos incidunt perferendis dolorem dicta fuga facilis a
-              ratione doloremque, numquam exercitationem cumque repellendus
-              laudantium quasi voluptatibus.
-            </p>
+            <p>{response.data?.isBlogExist?.text}</p>
           </div>
         </div>
         {/* comment list */}
