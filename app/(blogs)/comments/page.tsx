@@ -4,10 +4,14 @@ import { formatDistanceToNow } from "date-fns";
 // icons
 import { PiUserLight } from "react-icons/pi";
 import { CiCalendarDate } from "react-icons/ci";
+import { GoComment } from "react-icons/go";
 // ui
 import NewCommentForm from "@/app/ui/comments/NewCommentForm";
 import CommentList from "@/app/ui/comments/CommentList";
 import GetUsernameWithID from "@/app/ui/users/GetUsernameWithID";
+// ui
+// comments
+import CommentsCounter from "@/app/ui/comments/CommentsCounter";
 
 interface CommentsPageProps {
   searchParams: { _id: string };
@@ -30,7 +34,8 @@ const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
             {/* author */}
             <div className="flex items-center gap-x-1.5 text-sm text-green-500 cursor-pointer transition-colors ease-in-out duration-150 hover:text-green-600">
               <PiUserLight className="text-lg" />
-              <span>by</span> <GetUsernameWithID _id={response.data?.isBlogExist?.author} /> 
+              <span>by</span>{" "}
+              <GetUsernameWithID _id={response.data?.isBlogExist?.author} />
             </div>
             {/* date */}
             <div className="flex items-center text-xs text-neutral-500 gap-x-1.5">
@@ -44,6 +49,14 @@ const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
                 )}
               </span>
             </div>
+            {/* comments */}
+            <div className="flex items-center gap-x-0.5 text-sm">
+              <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 mx-1" />{" "}
+              <span className="text-sm text-green-500">
+                <CommentsCounter blogId={_id} />
+              </span>
+              <span className="text-sm text-green-500">comments</span>
+            </div>
           </header>
           {/* text */}
           <div className="text-sm bg-neutral-50 p-5 rounded-md">
@@ -51,10 +64,10 @@ const CommentsPage = async ({ searchParams }: CommentsPageProps) => {
           </div>
         </div>
         {/* comment list */}
-        <CommentList blogId={_id}/>
+        <CommentList blogId={_id} />
       </div>
       {/* add new comment */}
-      <NewCommentForm blog={_id}/>
+      <NewCommentForm blog={_id} />
     </div>
   );
 };

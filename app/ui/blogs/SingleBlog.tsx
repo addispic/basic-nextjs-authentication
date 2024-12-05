@@ -84,7 +84,7 @@ export default function SingleBlog({
               }}
               className="flex items-center gap-x-0.5"
             >
-              <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />{" "}
+              <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 mx-1" />{" "}
               <span className="text-sm text-green-500">
                 <CommentsCounter blogId={blogItem._id}/>
               </span>
