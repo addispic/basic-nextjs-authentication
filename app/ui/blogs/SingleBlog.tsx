@@ -14,6 +14,9 @@ import { PiTrashLight } from "react-icons/pi";
 // ui
 // user
 import GetUsernameWithID from "../users/GetUsernameWithID";
+// ui
+// blog
+import DeleteBlogButton from "./DeleteBlogButton";
 
 export default function SingleBlog({
   blogItem,
@@ -73,7 +76,7 @@ export default function SingleBlog({
             <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />
           </div>
           {/* delete */}
-          <PiTrashLight className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />
+          <DeleteBlogButton author={blogItem.author} _id={blogItem._id}/>
         </div>
       </footer>
     </div>

@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 // user schema
 const userSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: false,
-    },
     email: {
       type: String,
       unique: true,
@@ -23,4 +19,4 @@ const userSchema = new mongoose.Schema(
 );
 
 // exports
-export default mongoose.models.Users || mongoose.model("Users",userSchema)
+export default mongoose.models.Users || mongoose.model("Users", userSchema);

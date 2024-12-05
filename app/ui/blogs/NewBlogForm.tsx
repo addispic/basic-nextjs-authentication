@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 // icons
 import { MdAttachFile } from "react-icons/md";
@@ -15,6 +16,9 @@ export default function NewBlogForm() {
 
   // reference
   const textareaReference = useRef<HTMLTextAreaElement>(null);
+
+  // hooks
+  const router = useRouter()
 
   // textarea height handler
   useEffect(() => {
@@ -40,6 +44,7 @@ export default function NewBlogForm() {
             textareaReference.current.style.height = "20px";
             setText("");
           }
+          router.push("/")
         }
         setIsFormSubmitting(false);
       } catch (err) {
@@ -91,7 +96,7 @@ export default function NewBlogForm() {
       </div>
       {/* send button */}
       <button
-      disabled={isFormSubmitting}
+        disabled={isFormSubmitting}
         className={`text-xl transition-colors ease-in-out duration-150 md:text-2xl ${
           text.trim()
             ? "text-green-500 hover:text-green-600"
@@ -101,13 +106,11 @@ export default function NewBlogForm() {
           submitFormHandler();
         }}
       >
-        {
-          isFormSubmitting 
-          ?
-          <div className="w-[26px] aspect-square border-2 border-white rounded-full border-r-transparent animate-spin" />
-          :
-        <GrSend />
-        }
+        {isFormSubmitting ? (
+          <div className="w-[24px] aspect-square border-2 border-green-500 rounded-full border-r-transparent animate-spin" />
+        ) : (
+          <GrSend />
+        )}
       </button>
     </div>
   );
