@@ -4,6 +4,7 @@ import { PiUserLight } from "react-icons/pi";
 import { CiCalendarDate } from "react-icons/ci";
 // ui
 import GetUsernameWithID from "../users/GetUsernameWithID";
+import DeleteCommentButton from "./DeleteCommentButton";
 export default function SingleComment({
   comment,
 }: {
@@ -39,6 +40,8 @@ export default function SingleComment({
             })}
           </span>
         </div>
+        {/* delete comment */}
+        <DeleteCommentButton author={comment.author} _id={comment._id} blog={comment.blog}/>
       </div>
     </div>
   );

@@ -1,8 +1,6 @@
 // lib
 // session
 import { getPayload } from "@/app/lib/session";
-// icons
-import { PiTrashLight } from "react-icons/pi";
 // ui
 // confirm delete
 import ConfirmDeleteBlog from "./ConfirmDeleteBlog";
