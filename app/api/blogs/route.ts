@@ -40,7 +40,3 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// delete blog
-export async function DELETE() {
-  return NextResponse.json({ message: "delete blog" });
-}
