@@ -49,7 +49,7 @@ const router = useRouter()
                 <PiWarningThin />
               </div>
               <div>
-                <h3>Delete blog</h3>
+                <h3 className="text-orange-500">Delete blog</h3>
               </div>
             </header>
             <p className="text-sm text-neutral-500 my-2.5 text-center">

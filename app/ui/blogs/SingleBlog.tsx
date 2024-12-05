@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 // icons
 import { PiUserLight } from "react-icons/pi";
 import { PiClockAfternoonThin } from "react-icons/pi";
@@ -73,7 +74,12 @@ export default function SingleBlog({
           </div>
           {/* comment */}
           <div>
+            <Link href={{
+              pathname: "/comments",
+              query: {_id: "hahhdiiidndh98567"}
+            }}>
             <GoComment className="text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-600 cursor-pointer" />
+            </Link>
           </div>
           {/* delete */}
           <DeleteBlogButton author={blogItem.author} _id={blogItem._id}/>
